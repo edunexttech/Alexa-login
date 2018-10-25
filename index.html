@@ -111,6 +111,7 @@
               if (access_token){
                 console.log('password is correct');
                 window.location.href = "https://pitangui.amazon.com/spa/skill/account-linking-status.html?vendorId=M1AW5IED7E0SM6#state="+state+"&access_token="+access_token+"&token_type=Bearer";
+                return false;
               }
               
           },
@@ -140,6 +141,6 @@ var getParams = function (url) {
   }
   return params;
 };
-</script>>
+</script>
 
 </html>
