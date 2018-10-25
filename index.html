@@ -1,9 +1,9 @@
 <html>
 
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link href="bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="bootstrap.min.js"></script>
-  <script src="jquery.min.js"></script>
 
 <style>
   body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
@@ -90,15 +90,41 @@
 </body>
 
 <script type="text/javascript">
+
+    function NameAFunctionName(username,password) {
+        $.ajax({
+          url: 'http://eduinsight.edunexttechnologies.com/alexa_service/login_services?userid='+username+'&pwd='+password,
+          type: 'GET',
+          dataType: 'text',
+          headers: {
+            //WRITE IF THEIR HAVE SOME HEADER REQUEST OR DATA
+          },
+          crossDomain: true,
+          success: function (data, textStatus, xhr) {
+            console.log(username);
+            console.log(password);
+            var access_token=data;
+             var lol= getParams(window.location.href);
+              // console.log(lol.state);
+              var state=lol.state;
+              console.log(access_token);
+              if (access_token){
+                console.log('password is correct');
+                window.location.href = "https://pitangui.amazon.com/spa/skill/account-linking-status.html?vendorId=M1AW5IED7E0SM6#state="+state+"&access_token="+access_token+"&token_type=Bearer";
+              }
+              
+          },
+          error: function (xhr, textStatus, errorThrown) {
+            console.log(errorThrown);
+          }
+        });
+    }   
+
   function myFunction(){
   var username = document.getElementById("inputEmail").value;
   var password = document.getElementById("inputPassword").value;
-  var access_token='ZWR1aW5zaWdodF9fX2VkdW5leHRfX2FsZXhhX19fOTA2';
-  // alert('access_token: '+access_token);
-  var lol= getParams(window.location.href);
-  console.log(lol.state);
-  var state=lol.state;
-  window.location.href = "https://pitangui.amazon.com/spa/skill/account-linking-status.html?vendorId=M1AW5IED7E0SM6#state="+state+"&access_token="+access_token+"&token_type=Bearer";
+  // var access_token='ZWR1aW5zaWdodF9fX2VkdW5leHRfX2FsZXhhX19fOTA2';
+  NameAFunctionName(username,password);
   return false;
 };
 
